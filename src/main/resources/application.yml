@@ -1,0 +1,64 @@
+#mysql配置
+spring:
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 100MB
+  application:
+    name: project
+    #数据库配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/music?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 84453380
+  #redis配置
+  data:
+    redis:
+      password: 123456
+      host: 127.0.0.1
+      port: 6379
+      database: 1 #db1
+      timeout: 5000ms
+      lettuce:
+        pool:
+          max-idle: 8 #最大空闲线程
+          min-idle: 0 #最小空闲线程
+          max-active: 8 #最大运行线程
+          max-wait: -1ms  #线程等待时间
+#qq邮箱配置
+  mail:
+    host: smtp.qq.com  # QQ邮箱SMTP服务器地址
+    username: 2839545149@qq.com #登录qq邮箱的账号
+    password: amgvaqivtoalddai #开启IMAP/SMTP服务获得的授权码
+    default-encoding: utf-8
+    port: 465
+    protocol: smtp
+    properties:
+        mail:
+          smtp:
+            auth: true
+            ssl:
+              enable: true          # 启用SSL
+            socketFactory:
+              port: 465
+              class: javax.net.ssl.SSLSocketFactory
+#mybatisPlus配置
+mybatis-plus:
+  #指定xml文件扫描位置
+  mapper-locations: classpath:mapper/*.xml
+  #指定实体类包
+  type-aliases-package: com.gwc.entity
+  configuration:
+    #驼峰转换
+    map-underscore-to-camel-case: true
+    #日志实现
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      #插入策略
+      insert-strategy: not_null
+      #更新策略
+      update-strategy: not_null
+server:
+  port: 8080
