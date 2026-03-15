@@ -22,4 +22,6 @@ public interface ICarouselService extends IService<Carousel> {
     PageResult pageList(carouselVO carouselVO);
 
     void upload(MultipartFile file, Integer musicId, Integer isUsed) throws IOException;
+
+    void update(Carousel carousel);
 }

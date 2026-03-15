@@ -48,7 +48,7 @@ public class CarouselController {
     @PutMapping("/update")
     @Operation(description = "修改轮播图")
     public Result update(@RequestBody Carousel carousel) {
-        carouselService.updateById(carousel);
+        carouselService.update(carousel);
         return Result.success();
     }
 
