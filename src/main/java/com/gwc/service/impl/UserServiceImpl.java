@@ -243,7 +243,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return Result.error("已经有用户登录了");
         }
         //2.1通过redis实现锁
-        stringRedisTemplate.opsForValue().set(USER_LOGINSTATUS+ one.getId(), "1",2,TimeUnit.HOURS);
+        stringRedisTemplate.opsForValue().set(USER_LOGINSTATUS+ one.getId(), "1",1,TimeUnit.HOURS);
         //3.在redis里面记录
         Boolean isSuccess = stringRedisTemplate.opsForValue().setIfAbsent(USER_LOGINDAYCOUNT + LocalDate.now()
                         + ":"+LocalTime.now().getHour()
