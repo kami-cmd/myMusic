@@ -130,7 +130,7 @@ public class PlaylistServiceImpl extends ServiceImpl<PlaylistMapper, Playlist> i
         //1.查找到当前的歌单
         Playlist playlist = getById(id);
         //2.把他的歌曲数减1
-        playlist.setSongCount(playlist.getSongCount()-1);
+        playlist.setSongCount(playlist.getSongCount() - 1);
         //3.直接改
         updateById(playlist);
     }
@@ -140,7 +140,7 @@ public class PlaylistServiceImpl extends ServiceImpl<PlaylistMapper, Playlist> i
         //1.找到当前歌单
         Playlist playlist = getById(id);
         //2.把歌曲数加id的数量
-        playlist.setSongCount(playlist.getSongCount()+songIds.size());
+        playlist.setSongCount(playlist.getSongCount() + songIds.size());
         //3.直接修改
         updateById(playlist);
     }
@@ -150,11 +150,16 @@ public class PlaylistServiceImpl extends ServiceImpl<PlaylistMapper, Playlist> i
         //1.拿到公开的歌单列表
         List<Playlist> playlistList = lambdaQuery().eq(Playlist::getIsPublic, PUBLIC).list();
         //2.如果为空就返回空集合
-        if(playlistList==null||playlistList.isEmpty()){
+        if (playlistList == null || playlistList.isEmpty()) {
             return Collections.emptyList();
-        }
-        else {
-            return playlistList;
+        } else {
+            //3.随机来5个
+            //3.1.如果没有5个就全部返回
+            if (playlistList.size() < 5) {
+                return playlistList;
+            }
+            Collections.shuffle(playlistList);
+            return playlistList.subList(0, 5);
         }
     }
 

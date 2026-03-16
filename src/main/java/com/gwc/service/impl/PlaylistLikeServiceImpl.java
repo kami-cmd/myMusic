@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 
+import static com.gwc.utils.StringContent.PUBLIC;
+
 /**
  * <p>
  * 服务实现类
@@ -39,9 +41,7 @@ public class PlaylistLikeServiceImpl extends ServiceImpl<PlaylistLikeMapper, Pla
         //3.拿到歌单的id
         List<Integer> playlistsId = playlistLikes.stream().map(PlaylistLike::getPlaylistId).toList();
         //4.根据歌单id查出来
-        return playlistService.listByIds(playlistsId);
-
-
+        return playlistService.lambdaQuery().eq(Playlist::getIsPublic,PUBLIC).in(Playlist::getId,playlistsId).list();
     }
 
     @Override
