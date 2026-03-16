@@ -77,7 +77,7 @@ public class PlaylistController {
     public Result addSongs(@PathVariable Long id,
                            @RequestBody AddSongsRequest addSongsRequest) {
         playlistMusicService.addSongs(id, addSongsRequest.getSongIds());
-        playlistService.addSongs(id,addSongsRequest.getSongIds());
+        playlistService.addSongs(id, addSongsRequest.getSongIds());
         return Result.success();
     }
 
@@ -121,4 +121,26 @@ public class PlaylistController {
         playlistService.updatePublic(id, isPublic);
         return Result.success();
     }
+
+    @GetMapping("/public")
+    @Operation(description = "获取到公开的歌单")
+    public Result getPublicPlaylist() {
+        List<Playlist> playlists = playlistService.getPublicPlaylist();
+        return Result.success(playlists);
+    }
+
+    @PostMapping("/{id}/like")
+    @Operation(description = "用户添加喜欢或取消喜欢的歌单")
+    public Result likePlaylist(@PathVariable Long id,@RequestParam("action") Long isLike) {
+        playlistLikeService.likeOrUnlikePlaylist(id,isLike);
+        return  Result.success();
+    }
+
+    @GetMapping("/{id}/like")
+    @Operation(description = "检查用户是不是喜欢这个歌单")
+    public  Result isLikePlaylist(@PathVariable Long id){
+        boolean isLike=playlistLikeService.isLike(id);
+        return Result.success(isLike);
+    }
+
 }

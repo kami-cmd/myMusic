@@ -20,8 +20,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 
-import static com.gwc.utils.StringContent.PLAYLIST_COVER_PATH;
-import static com.gwc.utils.StringContent.PRIVATE;
+import static com.gwc.utils.StringContent.*;
 
 /**
  * <p>
@@ -144,6 +143,19 @@ public class PlaylistServiceImpl extends ServiceImpl<PlaylistMapper, Playlist> i
         playlist.setSongCount(playlist.getSongCount()+songIds.size());
         //3.直接修改
         updateById(playlist);
+    }
+
+    @Override
+    public List<Playlist> getPublicPlaylist() {
+        //1.拿到公开的歌单列表
+        List<Playlist> playlistList = lambdaQuery().eq(Playlist::getIsPublic, PUBLIC).list();
+        //2.如果为空就返回空集合
+        if(playlistList==null||playlistList.isEmpty()){
+            return Collections.emptyList();
+        }
+        else {
+            return playlistList;
+        }
     }
 
 

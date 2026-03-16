@@ -48,4 +48,33 @@ public class PlaylistLikeServiceImpl extends ServiceImpl<PlaylistLikeMapper, Pla
     public void deletePlaylist(Long id) {
         lambdaUpdate().eq(PlaylistLike::getPlaylistId, id).remove();
     }
+
+    @Override
+    public void likeOrUnlikePlaylist(Long id, Long isLike) {
+        //1.拿到当前用户的id
+        Long userId = UserContext.getUserId();
+        //2.如果是喜欢就增加
+        if (isLike == 1) {
+            PlaylistLike playlistLike = new PlaylistLike().setPlaylistId(Math.toIntExact(id)).setUserId(Math.toIntExact(userId));
+            save(playlistLike);
+        }
+        //3.如果是不喜欢就删除
+        else {
+            lambdaUpdate().eq(PlaylistLike::getUserId, userId)
+                    .eq(PlaylistLike::getPlaylistId, id)
+                    .remove();
+        }
+    }
+
+    @Override
+    public boolean isLike(Long id) {
+        //1.拿到用户id
+        Long userId = UserContext.getUserId();
+        //2.进行查找是否有符合的俩个
+        PlaylistLike one = lambdaQuery().eq(PlaylistLike::getPlaylistId, id)
+                .eq(PlaylistLike::getUserId, userId)
+                .one();
+        //3.有就是喜欢,没有就是不喜欢
+        return one != null;
+    }
 }

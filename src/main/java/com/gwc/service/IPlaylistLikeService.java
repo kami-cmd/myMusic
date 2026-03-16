@@ -19,4 +19,8 @@ public interface IPlaylistLikeService extends IService<PlaylistLike> {
     List<Playlist> getLiked();
 
     void deletePlaylist(Long id);
+
+    void likeOrUnlikePlaylist(Long id, Long isLike);
+
+    boolean isLike(Long id);
 }

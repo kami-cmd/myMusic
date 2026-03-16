@@ -34,4 +34,6 @@ public interface IPlaylistService extends IService<Playlist> {
     void removeSongs(Long id);
 
     void addSongs(Long id, List<Long> songIds);
+
+    List<Playlist> getPublicPlaylist();
 }
