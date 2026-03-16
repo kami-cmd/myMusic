@@ -30,4 +30,8 @@ public interface IPlaylistService extends IService<Playlist> {
     String getCreatorName(Long id);
 
     void updatePublic(Long id, Long isPublic);
+
+    void removeSongs(Long id);
+
+    void addSongs(Long id, List<Long> songIds);
 }

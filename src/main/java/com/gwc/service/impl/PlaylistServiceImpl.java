@@ -126,5 +126,25 @@ public class PlaylistServiceImpl extends ServiceImpl<PlaylistMapper, Playlist> i
                 .update();
     }
 
+    @Override
+    public void removeSongs(Long id) {
+        //1.查找到当前的歌单
+        Playlist playlist = getById(id);
+        //2.把他的歌曲数减1
+        playlist.setSongCount(playlist.getSongCount()-1);
+        //3.直接改
+        updateById(playlist);
+    }
+
+    @Override
+    public void addSongs(Long id, List<Long> songIds) {
+        //1.找到当前歌单
+        Playlist playlist = getById(id);
+        //2.把歌曲数加id的数量
+        playlist.setSongCount(playlist.getSongCount()+songIds.size());
+        //3.直接修改
+        updateById(playlist);
+    }
+
 
 }

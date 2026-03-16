@@ -54,4 +54,7 @@ public class Playlist implements Serializable {
 
     @Schema(description = "歌单的名字")
     private String name;
+
+    @Schema(description = "歌单的名字")
+    private Long songCount;
 }

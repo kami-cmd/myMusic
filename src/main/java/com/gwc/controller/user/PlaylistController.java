@@ -10,7 +10,6 @@ import com.gwc.service.IPlaylistService;
 import com.gwc.vo.AddSongsRequest;
 import com.gwc.vo.playlistVO;
 import io.swagger.v3.oas.annotations.Operation;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -78,6 +77,7 @@ public class PlaylistController {
     public Result addSongs(@PathVariable Long id,
                            @RequestBody AddSongsRequest addSongsRequest) {
         playlistMusicService.addSongs(id, addSongsRequest.getSongIds());
+        playlistService.addSongs(id,addSongsRequest.getSongIds());
         return Result.success();
     }
 
@@ -86,6 +86,7 @@ public class PlaylistController {
     public Result removeSongs(@PathVariable Long id,
                               @PathVariable Long songId) {
         playlistMusicService.removeSongs(id, songId);
+        playlistService.removeSongs(id);
         return Result.success();
     }
 
