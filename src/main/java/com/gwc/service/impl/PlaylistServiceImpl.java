@@ -153,13 +153,13 @@ public class PlaylistServiceImpl extends ServiceImpl<PlaylistMapper, Playlist> i
         if (playlistList == null || playlistList.isEmpty()) {
             return Collections.emptyList();
         } else {
-            //3.随机来5个
-            //3.1.如果没有5个就全部返回
-            if (playlistList.size() < 5) {
+            //3.随机来4个
+            //3.1.如果没有4个就全部返回
+            if (playlistList.size() < 4) {
                 return playlistList;
             }
             Collections.shuffle(playlistList);
-            return playlistList.subList(0, 5);
+            return playlistList.subList(0, 4);
         }
     }
 

@@ -34,4 +34,5 @@ public interface IMusicService extends IService<Music> {
     void uploadMusic(MultipartFile file) throws IOException;
 
     String getMusicUrl(Long id);
+
 }
