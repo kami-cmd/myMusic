@@ -103,7 +103,11 @@ public class MusicMetadataUtils {
     private static String ParseTime(int duration) {
         int min = duration / 60;
         int second = duration % 60;
-        return min + ":" + second;
+        if (second > 10) {
+            return min + ":" + second;
+        } else {
+            return min + ":0" + second;
+        }
     }
 
 }
